@@ -119,9 +119,9 @@ public class DemoKontaktDetailGridBagJFrame {
 				JLabel lblKontaktDetails = new JLabel("Kontakt Details");
 				lblKontaktDetails.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				GridBagConstraints gbc_lblKontaktDetails = new GridBagConstraints();
-				gbc_lblKontaktDetails.anchor = GridBagConstraints.NORTHWEST;
+				gbc_lblKontaktDetails.anchor = GridBagConstraints.NORTH;
 				gbc_lblKontaktDetails.insets = new Insets(0, 0, 5, 5);
-				gbc_lblKontaktDetails.gridwidth = 2;
+				gbc_lblKontaktDetails.gridwidth = 3;
 				gbc_lblKontaktDetails.gridx = 0;
 				gbc_lblKontaktDetails.gridy = 0;
 				frame.getContentPane().add(lblKontaktDetails, gbc_lblKontaktDetails);
