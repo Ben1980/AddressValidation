@@ -18,6 +18,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class DemoKontaktDetailJFrame {
@@ -32,7 +34,6 @@ public class DemoKontaktDetailJFrame {
 	private JLabel mailError;
 	private JLabel telefonError;
 
-	// TODO 3.3: Map your JTextFields to the internal names
 	private JTextField getNameField()
 	{
 		return nameField;
@@ -50,7 +51,6 @@ public class DemoKontaktDetailJFrame {
 		return telfonField;
 	}	 
 	
-	// TODO 3.3:  Map your error labels to the internal names
 	private JLabel getNamesErrorLabel()
 	{
 		return namesErrorLabel;
@@ -128,6 +128,7 @@ public class DemoKontaktDetailJFrame {
 		frame.getContentPane().add(notesArea);
 		
 		saveButton = new JButton("Save");
+		saveButton.setEnabled(false);
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Saved record for: "+getNameField().getText()+" "+getFirstNameField().getText());
@@ -165,6 +166,12 @@ public class DemoKontaktDetailJFrame {
 		emailField.setColumns(10);
 		
 		telfonField = new JTextField();
+		telfonField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				checkSaveable();
+			}
+		});
 		telfonField.addFocusListener(saveCecker);
 		telfonField.setBounds(96, 146, 150, 19);
 		frame.getContentPane().add(telfonField);
@@ -221,10 +228,10 @@ public class DemoKontaktDetailJFrame {
 
 	private void checkSaveable() {
 		Boolean isOk = hasAtLeastOneName();
-		//TODO 3.4
 		isOk = isValidEmail() && isOk; 
 		isOk = validTelNr() && isOk;		
-		//TODO 5.0
+		
+		saveButton.setEnabled(isOk);
 	}
 	
 	
