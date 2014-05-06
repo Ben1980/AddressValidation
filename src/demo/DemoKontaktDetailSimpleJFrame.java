@@ -22,7 +22,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 
-public class DemoKontaktDetailJFrame {
+public class DemoKontaktDetailSimpleJFrame {
 
 	private JFrame frame;
 	private JTextField nameField;	
@@ -73,7 +73,7 @@ public class DemoKontaktDetailJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DemoKontaktDetailJFrame window = new DemoKontaktDetailJFrame();
+					DemoKontaktDetailSimpleJFrame window = new DemoKontaktDetailSimpleJFrame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,7 +85,7 @@ public class DemoKontaktDetailJFrame {
 	/**
 	 * Create the application.
 	 */
-	public DemoKontaktDetailJFrame() {
+	public DemoKontaktDetailSimpleJFrame() {
 		initialize();
 	}
 
@@ -100,7 +100,7 @@ public class DemoKontaktDetailJFrame {
 		
 		FocusListener saveCecker =  new CheckSaveableFocusListener();
 			
-		ImageIcon errorIcon = new ImageIcon(DemoKontaktDetailJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif"));
+		ImageIcon errorIcon = new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif"));
 		
 		JLabel lblKontaktDetails = new JLabel("Kontakt Details");
 		lblKontaktDetails.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -181,7 +181,7 @@ public class DemoKontaktDetailJFrame {
 		telefonError.setVisible(false);
 		telefonError.setHorizontalAlignment(SwingConstants.CENTER);
 		telefonError.setToolTipText("Telefon darf nicht leer sein");
-		telefonError.setIcon(new ImageIcon(DemoKontaktDetailJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
+		telefonError.setIcon(new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
 		telefonError.setBounds(265, 133, 32, 32);
 		frame.getContentPane().add(telefonError);
 		
@@ -189,7 +189,7 @@ public class DemoKontaktDetailJFrame {
 		mailError.setVisible(false);
 		mailError.setHorizontalAlignment(SwingConstants.CENTER);
 		mailError.setToolTipText("eMail darf nicht leer sein");
-		mailError.setIcon(new ImageIcon(DemoKontaktDetailJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
+		mailError.setIcon(new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
 		mailError.setBounds(265, 91, 32, 32);
 		frame.getContentPane().add(mailError);
 		
