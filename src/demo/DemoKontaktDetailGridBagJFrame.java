@@ -129,7 +129,7 @@ public class DemoKontaktDetailGridBagJFrame {
 				JLabel lblName = new JLabel("Name:");
 				GridBagConstraints gbc_lblName = new GridBagConstraints();
 				gbc_lblName.fill = GridBagConstraints.HORIZONTAL;
-				gbc_lblName.insets = new Insets(0, 0, 5, 5);
+				gbc_lblName.insets = new Insets(0, 5, 5, 5);
 				gbc_lblName.gridx = 0;
 				gbc_lblName.gridy = 1;
 				frame.getContentPane().add(lblName, gbc_lblName);
@@ -156,7 +156,7 @@ public class DemoKontaktDetailGridBagJFrame {
 		JLabel lblNewLabel = new JLabel("Vorname:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.insets = new Insets(0, 5, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 2;
 		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
@@ -182,7 +182,7 @@ public class DemoKontaktDetailGridBagJFrame {
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
 		gbc_lblEmail.anchor = GridBagConstraints.SOUTH;
 		gbc_lblEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmail.insets = new Insets(0, 5, 5, 5);
 		gbc_lblEmail.gridx = 0;
 		gbc_lblEmail.gridy = 3;
 		frame.getContentPane().add(lblEmail, gbc_lblEmail);
@@ -215,7 +215,7 @@ public class DemoKontaktDetailGridBagJFrame {
 		GridBagConstraints gbc_lblTelefon = new GridBagConstraints();
 		gbc_lblTelefon.anchor = GridBagConstraints.SOUTH;
 		gbc_lblTelefon.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblTelefon.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTelefon.insets = new Insets(0, 5, 5, 5);
 		gbc_lblTelefon.gridx = 0;
 		gbc_lblTelefon.gridy = 4;
 		frame.getContentPane().add(lblTelefon, gbc_lblTelefon);
@@ -252,7 +252,7 @@ public class DemoKontaktDetailGridBagJFrame {
 		JLabel lblNotizen = new JLabel("Notizen:");
 		GridBagConstraints gbc_lblNotizen = new GridBagConstraints();
 		gbc_lblNotizen.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNotizen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNotizen.insets = new Insets(0, 5, 5, 5);
 		gbc_lblNotizen.gridx = 0;
 		gbc_lblNotizen.gridy = 5;
 		frame.getContentPane().add(lblNotizen, gbc_lblNotizen);
@@ -260,7 +260,7 @@ public class DemoKontaktDetailGridBagJFrame {
 			JTextArea notesArea = new JTextArea();
 			GridBagConstraints gbc_notesArea = new GridBagConstraints();
 			gbc_notesArea.fill = GridBagConstraints.BOTH;
-			gbc_notesArea.insets = new Insets(0, 0, 5, 5);
+			gbc_notesArea.insets = new Insets(0, 10, 5, 5);
 			gbc_notesArea.gridwidth = 2;
 			gbc_notesArea.gridx = 0;
 			gbc_notesArea.gridy = 6;
@@ -268,8 +268,7 @@ public class DemoKontaktDetailGridBagJFrame {
 		GridBagConstraints gbc_saveButton = new GridBagConstraints();
 		gbc_saveButton.anchor = GridBagConstraints.WEST;
 		gbc_saveButton.fill = GridBagConstraints.VERTICAL;
-		gbc_saveButton.insets = new Insets(0, 0, 0, 5);
-		gbc_saveButton.gridwidth = 2;
+		gbc_saveButton.insets = new Insets(0, 10, 5, 5);
 		gbc_saveButton.gridx = 0;
 		gbc_saveButton.gridy = 7;
 		frame.getContentPane().add(saveButton, gbc_saveButton);
