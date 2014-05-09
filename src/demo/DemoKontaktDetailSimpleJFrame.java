@@ -20,6 +20,7 @@ import java.awt.event.FocusListener;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JPanel;
 
 
 public class DemoKontaktDetailSimpleJFrame {
@@ -104,18 +105,8 @@ public class DemoKontaktDetailSimpleJFrame {
 		
 		JLabel lblKontaktDetails = new JLabel("Kontakt Details");
 		lblKontaktDetails.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblKontaktDetails.setBounds(10, 15, 129, 17);
+		lblKontaktDetails.setBounds(10, 7, 129, 17);
 		frame.getContentPane().add(lblKontaktDetails);
-		
-		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(10, 47, 71, 14);
-		frame.getContentPane().add(lblName);
-		
-		nameField = new JTextField();
-		nameField.addFocusListener(saveCecker);
-		nameField.setBounds(97, 44, 150, 20);
-		frame.getContentPane().add(nameField);
-		nameField.setColumns(10);
 
 		namesErrorLabel = new JLabel(errorIcon);
 		namesErrorLabel.setVisible(false);
@@ -192,6 +183,18 @@ public class DemoKontaktDetailSimpleJFrame {
 		mailError.setIcon(new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
 		mailError.setBounds(265, 91, 32, 32);
 		frame.getContentPane().add(mailError);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 25, 237, 23);
+		frame.getContentPane().add(panel);
+		
+		JLabel lblName = new JLabel("Name:");
+		panel.add(lblName);
+		
+		nameField = new JTextField();
+		panel.add(nameField);
+		nameField.addFocusListener(saveCecker);
+		nameField.setColumns(10);
 		
 	}
 	
