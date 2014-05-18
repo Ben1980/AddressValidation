@@ -21,6 +21,12 @@ import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.FlowLayout;
 
 
 public class DemoKontaktDetailSimpleJFrame {
@@ -95,106 +101,150 @@ public class DemoKontaktDetailSimpleJFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 326, 398);
+		frame.setBounds(100, 100, 647, 537);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
 		FocusListener saveCecker =  new CheckSaveableFocusListener();
 			
 		ImageIcon errorIcon = new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif"));
+		frame.getContentPane().setLayout(null);
 		
 		JLabel lblKontaktDetails = new JLabel("Kontakt Details");
+		lblKontaktDetails.setBounds(124, 0, 104, 17);
 		lblKontaktDetails.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblKontaktDetails.setBounds(10, 7, 129, 17);
 		frame.getContentPane().add(lblKontaktDetails);
-
-		namesErrorLabel = new JLabel(errorIcon);
-		namesErrorLabel.setVisible(false);
-		namesErrorLabel.setToolTipText("Vorname und Nachmame duerfen nicht beide leer sein");
-		namesErrorLabel.setBounds(265, 47, 32, 32);
-		frame.getContentPane().add(namesErrorLabel);
-	
-		JTextArea notesArea = new JTextArea();
-		notesArea.setBounds(10, 193, 220, 119);
-		frame.getContentPane().add(notesArea);
-		
-		saveButton = new JButton("Save");
-		saveButton.setEnabled(false);
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Saved record for: "+getNameField().getText()+" "+getFirstNameField().getText());
-			}
-		});
-		saveButton.setBounds(10, 323, 89, 23);
-		frame.getContentPane().add(saveButton);
-		
-		JLabel lblNotizen = new JLabel("Notizen:");
-		lblNotizen.setBounds(10, 177, 71, 14);
-		frame.getContentPane().add(lblNotizen);
-		
-		JLabel lblNewLabel = new JLabel("Vorname:");
-		lblNewLabel.setBounds(10, 73, 70, 15);
-		frame.getContentPane().add(lblNewLabel);
-		
-		vornameField = new JTextField();
-		vornameField.addFocusListener(saveCecker);
-		vornameField.setBounds(97, 71, 150, 19);
-		frame.getContentPane().add(vornameField);
-		vornameField.setColumns(10);
-		
-		JLabel lblEmail = new JLabel("eMail:");
-		lblEmail.setBounds(10, 108, 70, 15);
-		frame.getContentPane().add(lblEmail);
-		
-		JLabel lblTelefon = new JLabel("Telefon:");
-		lblTelefon.setBounds(10, 150, 70, 15);
-		frame.getContentPane().add(lblTelefon);
-		
-		emailField = new JTextField();
-		emailField.addFocusListener(saveCecker);
-		emailField.setBounds(97, 106, 150, 19);
-		frame.getContentPane().add(emailField);
-		emailField.setColumns(10);
-		
-		telfonField = new JTextField();
-		telfonField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				checkSaveable();
-			}
-		});
-		telfonField.addFocusListener(saveCecker);
-		telfonField.setBounds(96, 146, 150, 19);
-		frame.getContentPane().add(telfonField);
-		telfonField.setColumns(10);
-		
-		telefonError = new JLabel("");
-		telefonError.setVisible(false);
-		telefonError.setHorizontalAlignment(SwingConstants.CENTER);
-		telefonError.setToolTipText("Telefon darf nicht leer sein");
-		telefonError.setIcon(new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
-		telefonError.setBounds(265, 133, 32, 32);
-		frame.getContentPane().add(telefonError);
-		
-		mailError = new JLabel("");
-		mailError.setVisible(false);
-		mailError.setHorizontalAlignment(SwingConstants.CENTER);
-		mailError.setToolTipText("eMail darf nicht leer sein");
-		mailError.setIcon(new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
-		mailError.setBounds(265, 91, 32, 32);
-		frame.getContentPane().add(mailError);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 25, 237, 23);
+		panel.setBounds(0, 17, 552, 369);
 		frame.getContentPane().add(panel);
-		
-		JLabel lblName = new JLabel("Name:");
-		panel.add(lblName);
-		
-		nameField = new JTextField();
-		panel.add(nameField);
-		nameField.addFocusListener(saveCecker);
-		nameField.setColumns(10);
+		panel.setLayout(new BorderLayout(0, 0));
+				
+				JPanel panel_1 = new JPanel();
+				panel.add(panel_1, BorderLayout.CENTER);
+				panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+				
+				JLabel lblNotizen = new JLabel("Notizen:");
+				panel_1.add(lblNotizen);
+				
+					JTextArea notesArea = new JTextArea();
+					panel_1.add(notesArea);
+									
+									JPanel panel_9 = new JPanel();
+									panel.add(panel_9, BorderLayout.SOUTH);
+									panel_9.setLayout(new BoxLayout(panel_9, BoxLayout.X_AXIS));
+									
+									saveButton = new JButton("Save");
+									panel_9.add(saveButton);
+									saveButton.setEnabled(false);
+									
+									Component horizontalGlue = Box.createHorizontalGlue();
+									panel_9.add(horizontalGlue);
+									
+									JPanel panel_10 = new JPanel();
+									panel.add(panel_10, BorderLayout.NORTH);
+									panel_10.setLayout(new BoxLayout(panel_10, BoxLayout.X_AXIS));
+									
+									JPanel panel_8 = new JPanel();
+									panel_10.add(panel_8);
+									panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.Y_AXIS));
+									
+									JPanel panel_5 = new JPanel();
+									panel_8.add(panel_5);
+									panel_5.setLayout(new BoxLayout(panel_5, BoxLayout.X_AXIS));
+									
+									JPanel panel_4 = new JPanel();
+									panel_5.add(panel_4);
+									panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.Y_AXIS));
+									
+									JPanel panel_3 = new JPanel();
+									panel_4.add(panel_3);
+									panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+									
+									JLabel lblNewLabel = new JLabel("Vorname:");
+									lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+									panel_3.add(lblNewLabel);
+									
+									vornameField = new JTextField();
+									vornameField.setHorizontalAlignment(SwingConstants.CENTER);
+									panel_3.add(vornameField);
+									vornameField.addFocusListener(saveCecker);
+									vornameField.setColumns(10);
+									
+									JPanel panel_2 = new JPanel();
+									panel_4.add(panel_2);
+									panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+									
+									JLabel lblName = new JLabel("Name:");
+									lblName.setHorizontalAlignment(SwingConstants.LEFT);
+									panel_2.add(lblName);
+									
+									nameField = new JTextField();
+									nameField.setHorizontalAlignment(SwingConstants.CENTER);
+									panel_2.add(nameField);
+									nameField.addFocusListener(saveCecker);
+									nameField.setColumns(10);
+									
+											namesErrorLabel = new JLabel(errorIcon);
+											namesErrorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+											namesErrorLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+											panel_5.add(namesErrorLabel);
+											namesErrorLabel.setVisible(false);
+											namesErrorLabel.setToolTipText("Vorname und Nachmame duerfen nicht beide leer sein");
+											
+											JPanel panel_6 = new JPanel();
+											panel_8.add(panel_6);
+											panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+											
+											JLabel lblEmail = new JLabel("eMail:");
+											panel_6.add(lblEmail);
+											
+											telfonField = new JTextField();
+											telfonField.setHorizontalAlignment(SwingConstants.CENTER);
+											telfonField.setAlignmentX(Component.RIGHT_ALIGNMENT);
+											telfonField.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+											panel_6.add(telfonField);
+											telfonField.addKeyListener(new KeyAdapter() {
+												@Override
+												public void keyReleased(KeyEvent e) {
+													checkSaveable();
+												}
+											});
+											telfonField.addFocusListener(saveCecker);
+											telfonField.setColumns(10);
+											
+											mailError = new JLabel("");
+											panel_6.add(mailError);
+											mailError.setVisible(false);
+											mailError.setHorizontalAlignment(SwingConstants.RIGHT);
+											mailError.setToolTipText("eMail darf nicht leer sein");
+											mailError.setIcon(new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
+											
+											JPanel panel_7 = new JPanel();
+											panel_8.add(panel_7);
+											panel_7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+											
+											JLabel lblTelefon = new JLabel("Telefon:");
+											panel_7.add(lblTelefon);
+											
+											emailField = new JTextField();
+											panel_7.add(emailField);
+											emailField.addFocusListener(saveCecker);
+											emailField.setColumns(10);
+											
+											telefonError = new JLabel("");
+											panel_7.add(telefonError);
+											telefonError.setVisible(false);
+											telefonError.setHorizontalAlignment(SwingConstants.RIGHT);
+											telefonError.setToolTipText("Telefon darf nicht leer sein");
+											telefonError.setIcon(new ImageIcon(DemoKontaktDetailSimpleJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
+											
+											Component horizontalGlue_1 = Box.createHorizontalGlue();
+											panel_10.add(horizontalGlue_1);
+									saveButton.addActionListener(new ActionListener() {
+										public void actionPerformed(ActionEvent arg0) {
+											System.out.println("Saved record for: "+getNameField().getText()+" "+getFirstNameField().getText());
+										}
+									});
 		
 	}
 	
