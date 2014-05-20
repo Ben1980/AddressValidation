@@ -83,22 +83,22 @@ public class ContactListMasterDetailFrame implements Observer {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Contact newContact = new Contact();
-					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(newContact);
-					window.frame.setVisible(true);
-					
-					ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(newContact);
-					window2.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Contact newContact = new Contact();
+//					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(newContact);
+//					window.frame.setVisible(true);
+//					
+//					ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(newContact);
+//					window2.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -107,6 +107,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		_contact = contact;
 		_contact.addObserver(this);
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
