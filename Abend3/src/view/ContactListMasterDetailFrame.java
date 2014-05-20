@@ -1,4 +1,4 @@
-package demo;
+package view;
 
 import java.awt.EventQueue;
 
@@ -35,7 +35,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-public class DemoKontaktDetailGridBagJFrame implements Observer {
+public class ContactListMasterDetailFrame implements Observer {
 
 	private JFrame frame;
 	private JTextField nameField;	
@@ -88,10 +88,10 @@ public class DemoKontaktDetailGridBagJFrame implements Observer {
 			public void run() {
 				try {
 					Contact newContact = new Contact();
-					DemoKontaktDetailGridBagJFrame window = new DemoKontaktDetailGridBagJFrame(newContact);
+					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(newContact);
 					window.frame.setVisible(true);
 					
-					DemoKontaktDetailGridBagJFrame window2 = new DemoKontaktDetailGridBagJFrame(newContact);
+					ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(newContact);
 					window2.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -103,7 +103,7 @@ public class DemoKontaktDetailGridBagJFrame implements Observer {
 	/**
 	 * Create the application.
 	 */
-	public DemoKontaktDetailGridBagJFrame  (Contact contact) {
+	public ContactListMasterDetailFrame  (Contact contact) {
 		_contact = contact;
 		_contact.addObserver(this);
 		initialize();
@@ -121,7 +121,7 @@ public class DemoKontaktDetailGridBagJFrame implements Observer {
 		
 		FocusListener saveCecker =  new CheckSaveableFocusListener();
 			
-		ImageIcon errorIcon = new ImageIcon(DemoKontaktDetailGridBagJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif"));
+		ImageIcon errorIcon = new ImageIcon(ContactListMasterDetailFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif"));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{71, 151, 32, 0};
 		gridBagLayout.rowHeights = new int[]{17, 20, 19, 34, 32, 14, 119, 23, 0};
@@ -249,7 +249,7 @@ public class DemoKontaktDetailGridBagJFrame implements Observer {
 		emailField.setColumns(10);
 		mailError.setHorizontalAlignment(SwingConstants.CENTER);
 		mailError.setToolTipText("eMail darf nicht leer sein");
-		mailError.setIcon(new ImageIcon(DemoKontaktDetailGridBagJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
+		mailError.setIcon(new ImageIcon(ContactListMasterDetailFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
 		GridBagConstraints gbc_mailError = new GridBagConstraints();
 		gbc_mailError.anchor = GridBagConstraints.NORTH;
 		gbc_mailError.fill = GridBagConstraints.HORIZONTAL;
@@ -287,7 +287,7 @@ public class DemoKontaktDetailGridBagJFrame implements Observer {
 		telefonError.setVisible(false);
 		telefonError.setHorizontalAlignment(SwingConstants.CENTER);
 		telefonError.setToolTipText("Telefon darf nicht leer sein");
-		telefonError.setIcon(new ImageIcon(DemoKontaktDetailGridBagJFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
+		telefonError.setIcon(new ImageIcon(ContactListMasterDetailFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
 		GridBagConstraints gbc_telefonError = new GridBagConstraints();
 		gbc_telefonError.anchor = GridBagConstraints.NORTH;
 		gbc_telefonError.fill = GridBagConstraints.HORIZONTAL;
