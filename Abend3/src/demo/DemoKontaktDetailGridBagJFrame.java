@@ -22,6 +22,8 @@ import java.awt.event.FocusListener;
 
 import javax.swing.SwingConstants;
 
+import domain.Contact;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Dimension;
