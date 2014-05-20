@@ -23,6 +23,7 @@ import java.awt.event.FocusListener;
 import javax.swing.SwingConstants;
 
 import domain.Contact;
+import domain.ContactStore;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -46,7 +47,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	private JTextField telfonField;
 	private JLabel mailError;
 	private JLabel telefonError;
-	private Contact _contact;
+	private ContactStore _contactStore;
 
 	private JTextField getNameField()
 	{
@@ -103,9 +104,9 @@ public class ContactListMasterDetailFrame implements Observer {
 	/**
 	 * Create the application.
 	 */
-	public ContactListMasterDetailFrame  (Contact contact) {
-		_contact = contact;
-		_contact.addObserver(this);
+	public ContactListMasterDetailFrame  (ContactStore newContactStore) {
+		_contactStore = newContactStore;
+		_contactStore.addObserver(this);
 		initialize();
 		frame.setVisible(true);
 	}
@@ -135,7 +136,8 @@ public class ContactListMasterDetailFrame implements Observer {
 		vornameField.addFocusListener(new FocusAdapter() {
 			@Override			
 			public void focusLost(FocusEvent arg0){
-				setContactFirstName();
+				//TODO: validierung
+				//setContactFirstName();
 			}
 		});
 		
@@ -166,7 +168,8 @@ public class ContactListMasterDetailFrame implements Observer {
 
 					@Override
 					public void focusLost(FocusEvent e) {
-						setContactLastName();
+						//TODO: validierung
+						//setContactLastName();
 					}	
 					
 				});
@@ -209,14 +212,16 @@ public class ContactListMasterDetailFrame implements Observer {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				checkSaveable();
-				setContactTelNr();
+				//TODO: validierung
+				//setContactTelNr();
 			}
 		});
 		telfonField.addFocusListener(saveCecker);
 		telfonField.addFocusListener(new FocusAdapter() {
 			@Override			
 			public void focusLost(FocusEvent arg0){
-				setContactTelNr();
+				//TODO: validierung
+				//setContactTelNr();
 			}
 		});
 		
@@ -237,7 +242,8 @@ public class ContactListMasterDetailFrame implements Observer {
 		emailField.addFocusListener(new FocusAdapter() {
 			@Override			
 			public void focusLost(FocusEvent arg0){
-				setContactEmail();
+				//TODO: validierung
+				//setContactEmail();
 			}
 		});
 		GridBagConstraints gbc_emailField = new GridBagConstraints();
@@ -366,30 +372,30 @@ public class ContactListMasterDetailFrame implements Observer {
 //	private void saveAll(){
 //		//TODO: :)
 //	}
-	
-	private void setContactLastName(){
-		if(hasAtLeastOneName()){
-			_contact.setLastName(getNameField().getText());
-		}
-	}
-
-	private void setContactFirstName(){
-		if(hasAtLeastOneName()){
-			_contact.setFirstName(getFirstNameField().getText());
-		}
-	}
-
-	private void setContactEmail(){
-		if(isValidEmail()){
-			_contact.setEmail(getEMailField().getText());
-		}
-	}
-
-	private void setContactTelNr(){
-		if(isValidTelNr()){
-			_contact.setTelNr(getTelNrField().getText());
-		}
-	}
+	//TODO: change to select _contact
+//	private void setContactLastName(){
+//		if(hasAtLeastOneName()){
+//			_contact.setLastName(getNameField().getText());
+//		}
+//	}
+//
+//	private void setContactFirstName(){
+//		if(hasAtLeastOneName()){
+//			_contact.setFirstName(getFirstNameField().getText());
+//		}
+//	}
+//
+//	private void setContactEmail(){
+//		if(isValidEmail()){
+//			_contact.setEmail(getEMailField().getText());
+//		}
+//	}
+//
+//	private void setContactTelNr(){
+//		if(isValidTelNr()){
+//			_contact.setTelNr(getTelNrField().getText());
+//		}
+//	}
 	
 	private class CheckSaveableFocusListener extends FocusAdapter {
 		@Override
