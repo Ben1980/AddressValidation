@@ -79,27 +79,6 @@ public class ContactListMasterDetailFrame implements Observer {
 		return telefonError;
 	}	 
 
-	
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Contact newContact = new Contact();
-//					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(newContact);
-//					window.frame.setVisible(true);
-//					
-//					ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(newContact);
-//					window2.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create the application.
 	 */
