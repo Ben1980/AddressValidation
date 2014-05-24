@@ -131,7 +131,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		frame.getContentPane().add(ContactListJPanel);
 		GridBagLayout gbl_ContactListJPanel = new GridBagLayout();
 		gbl_ContactListJPanel.columnWidths = new int[]{71, 61, 89, 71, 71, 0};
-		gbl_ContactListJPanel.rowHeights = new int[]{333, 139, 25, 0};
+		gbl_ContactListJPanel.rowHeights = new int[]{333, 139, 40, 0};
 		gbl_ContactListJPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_ContactListJPanel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		ContactListJPanel.setLayout(gbl_ContactListJPanel);
@@ -160,7 +160,6 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		JButton btnAdd = new JButton("Add");
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
-		gbc_btnAdd.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnAdd.insets = new Insets(0, 0, 10, 5);
 		gbc_btnAdd.gridx = 1;
 		gbc_btnAdd.gridy = 2;
@@ -175,7 +174,6 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		btnRemove = new JButton("Remove");
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
-		gbc_btnRemove.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnRemove.insets = new Insets(0, 0, 10, 5);
 		gbc_btnRemove.gridx = 2;
 		gbc_btnRemove.gridy = 2;
@@ -190,7 +188,6 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		JButton btnUndo = new JButton("Undo");
 		GridBagConstraints gbc_btnUndo = new GridBagConstraints();
-		gbc_btnUndo.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnUndo.insets = new Insets(0, 0, 10, 5);
 		gbc_btnUndo.gridx = 3;
 		gbc_btnUndo.gridy = 2;
@@ -199,7 +196,6 @@ public class ContactListMasterDetailFrame implements Observer {
 		JButton btnRemove_1 = new JButton("Redo");
 		GridBagConstraints gbc_btnRemove_1 = new GridBagConstraints();
 		gbc_btnRemove_1.insets = new Insets(0, 0, 10, 5);
-		gbc_btnRemove_1.anchor = GridBagConstraints.NORTH;
 		gbc_btnRemove_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnRemove_1.gridx = 4;
 		gbc_btnRemove_1.gridy = 2;
