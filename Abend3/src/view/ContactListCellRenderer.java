@@ -26,11 +26,21 @@ public class ContactListCellRenderer extends JLabel implements ListCellRenderer<
 			JList<? extends Contact> list, Contact value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 		// TODO Auto-generated method stub
-		setText(value.getLastName());
-		setBackground(Color.RED);
-		setForeground(Color.WHITE);
+		setText(value.getLastName());		
+		
+		setStyles(isSelected, Color.RED, Color.WHITE);
+		setStyles(!isSelected, Color.WHITE, Color.BLACK);
+		
 		
 		return this;
+	}
+	
+	private void setStyles(boolean setStyle, Color backGround, Color foreGround){
+		if(!setStyle){
+			return;
+		}
+		setBackground(backGround);
+		setForeground(foreGround);
 	}
 
 }

@@ -8,7 +8,38 @@ public class Contact extends Observable {
 	private String firstName;
 	private String email;
 	private String telNr;
-			
+	
+	public Contact(){
+		
+	}
+	
+	//makes a copy of the contact (lastname, firstname, email, telnr)
+	public Contact(Contact toCopyContact){
+		this.lastName = toCopyContact.lastName;
+		this.firstName = toCopyContact.firstName;
+		this.email = toCopyContact.email;
+		this.telNr = toCopyContact.telNr;
+	}
+	
+	public Contact Copy(){
+		return new Contact(this);
+	}
+	
+	public static boolean AreSameContact(Contact firstToCompare, Contact secondToCompare){
+		if((firstToCompare == null) && (secondToCompare == null)){
+			return true;
+		}
+		
+		if((firstToCompare == null) || (secondToCompare == null)){
+			return false;
+		}
+		
+		return (firstToCompare.firstName == secondToCompare.firstName)
+				&& (firstToCompare.lastName == secondToCompare.lastName)
+				&& (firstToCompare.email == secondToCompare.email)
+				&& (firstToCompare.telNr == secondToCompare.telNr);
+	}
+	
 	public String getTelNr() {
 		return telNr;		
 	}

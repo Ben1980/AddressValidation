@@ -46,7 +46,7 @@ public class ContactStore extends Observable implements Observer {
 	}
 	
 	public Contact getContact(int index){
-		if (index>=contactList.size()){
+		if (index > contactList.size()){
 			index=contactList.size()-1;
 		}
 		return contactList.get(index);

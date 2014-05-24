@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 
 import util.SimpleValidator;
 import viewModels.ContactStoreJListModel;
@@ -59,6 +60,8 @@ public class ContactListMasterDetailFrame implements Observer {
 	private ContactStore _contactStore;
 	private JPanel ContactListJPanel;
 	private JList<Contact> _contactJList;
+	private Contact _selectedContact;
+	private Contact _copySelectedContact;
 
 	private JTextField getNameField()
 	{
@@ -96,7 +99,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	 */
 	public ContactListMasterDetailFrame  (ContactStore contactStore) {
 		_contactStore = contactStore;
-		_contactStore.addObserver(contactStore);
+		_contactStore.addObserver(this);
 		initialize();
 		frame.setVisible(true);
 	}
@@ -241,7 +244,7 @@ public class ContactListMasterDetailFrame implements Observer {
 					
 					_contactJList = new JList<Contact>();
 					_contactJList.setBounds(20, 41, 152, 174);
-					
+					_contactJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					ContactListJPanel.add(_contactJList);
 					initializeContactList(getContactjList());
 					
@@ -261,6 +264,18 @@ public class ContactListMasterDetailFrame implements Observer {
 		if(_contactStore != null){
 			contactList.setCellRenderer(new ContactListCellRenderer());
 			contactList.setModel(new ContactStoreJListModel(_contactStore));
+			contactList.addListSelectionListener(new ListSelectionListener() {
+				
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+					// TODO Auto-generated method stub
+					if(e.getFirstIndex() > -1){
+						_selectedContact = _contactStore.getContact(getContactjList().getSelectedIndex());
+						_copySelectedContact = _selectedContact.Copy();
+						update(_selectedContact, "all");
+					}					
+				}
+			});
 			contactList.repaint();	
 		}
 		
@@ -311,30 +326,26 @@ public class ContactListMasterDetailFrame implements Observer {
 //	}
 	
 	private void setContactLastName(){
-		if(hasAtLeastOneName()){
-			//TODO validierung
-			//_contact.setLastName(getNameField().getText());
+		if(hasAtLeastOneName()){			
+			_selectedContact.setLastName(getNameField().getText());
 		}
 	}
 
 	private void setContactFirstName(){
-		if(hasAtLeastOneName()){
-			//TODO: validierung
-			//_contact.setFirstName(getFirstNameField().getText());
+		if(hasAtLeastOneName()){			
+			_selectedContact.setFirstName(getFirstNameField().getText());
 		}
 	}
 
 	private void setContactEmail(){
-		if(isValidEmail()){
-			//TODO: validierung
-			//_contact.setEmail(getEMailField().getText());
+		if(isValidEmail()){			
+			_selectedContact.setEmail(getEMailField().getText());
 		}
 	}
 
 	private void setContactTelNr(){
-		if(isValidTelNr()){
-			//TODO: validierung
-			//_contact.setTelNr(getTelNrField().getText());
+		if(isValidTelNr()){			
+			_selectedContact.setTelNr(getTelNrField().getText());
 		}
 	}
 	
@@ -348,20 +359,25 @@ public class ContactListMasterDetailFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		if(!(o instanceof Contact)){
+			return;
+		}
 		Contact contact = (Contact)o;
-		if(arg == "lastName"){
+		boolean updateAll = arg == "all";
+		
+		if(updateAll || (arg == "lastName")){
 			getNameField().setText(contact.getLastName());		
 		}
 		
-		if(arg == "firstName"){
+		if(updateAll || (arg == "firstName")){
 			getFirstNameField().setText(contact.getFirstName());
 		}
 		
-		if(arg == "email"){
+		if(updateAll || (arg == "email")){
 			getEMailField().setText(contact.getEmail());
 		}
 		
-		if(arg == "telNr"){
+		if(updateAll || (arg == "telNr")){
 			getTelNrField().setText(contact.getTelNr());
 		}
 	
