@@ -131,10 +131,21 @@ public class ContactListMasterDetailFrame implements Observer {
 		frame.getContentPane().add(ContactListJPanel);
 		GridBagLayout gbl_ContactListJPanel = new GridBagLayout();
 		gbl_ContactListJPanel.columnWidths = new int[]{71, 61, 89, 71, 71, 0};
-		gbl_ContactListJPanel.rowHeights = new int[]{497, 40, 0};
+		gbl_ContactListJPanel.rowHeights = new int[]{46, 497, 40, 0};
 		gbl_ContactListJPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_ContactListJPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_ContactListJPanel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		ContactListJPanel.setLayout(gbl_ContactListJPanel);
+		
+		txtSearch = new JTextField();
+		txtSearch.setText("Search...");
+		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
+		gbc_txtSearch.gridwidth = 4;
+		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSearch.insets = new Insets(0, 10, 10, 5);
+		gbc_txtSearch.gridx = 0;
+		gbc_txtSearch.gridy = 0;
+		ContactListJPanel.add(txtSearch, gbc_txtSearch);
+		txtSearch.setColumns(10);
 		
 		_contactJList = new JList<Contact>();
 		_contactJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -143,25 +154,15 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc__contactJList.insets = new Insets(10, 10, 5, 0);
 		gbc__contactJList.gridwidth = 5;
 		gbc__contactJList.gridx = 0;
-		gbc__contactJList.gridy = 0;
+		gbc__contactJList.gridy = 1;
 		ContactListJPanel.add(_contactJList, gbc__contactJList);
 		initializeContactList(getContactjList());
-		
-		txtSearch = new JTextField();
-		txtSearch.setText("Search...");
-		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
-		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSearch.insets = new Insets(0, 10, 10, 5);
-		gbc_txtSearch.gridx = 0;
-		gbc_txtSearch.gridy = 1;
-		ContactListJPanel.add(txtSearch, gbc_txtSearch);
-		txtSearch.setColumns(10);
 		
 		JButton btnAdd = new JButton("Add");
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 10, 5);
 		gbc_btnAdd.gridx = 1;
-		gbc_btnAdd.gridy = 1;
+		gbc_btnAdd.gridy = 2;
 		ContactListJPanel.add(btnAdd, gbc_btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
 			
@@ -175,7 +176,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
 		gbc_btnRemove.insets = new Insets(0, 0, 10, 5);
 		gbc_btnRemove.gridx = 2;
-		gbc_btnRemove.gridy = 1;
+		gbc_btnRemove.gridy = 2;
 		ContactListJPanel.add(btnRemove, gbc_btnRemove);
 		btnRemove.addActionListener(new ActionListener() {
 			
@@ -189,7 +190,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc_btnUndo = new GridBagConstraints();
 		gbc_btnUndo.insets = new Insets(0, 0, 10, 5);
 		gbc_btnUndo.gridx = 3;
-		gbc_btnUndo.gridy = 1;
+		gbc_btnUndo.gridy = 2;
 		ContactListJPanel.add(btnUndo, gbc_btnUndo);
 		
 		JButton btnRemove_1 = new JButton("Redo");
@@ -197,7 +198,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc_btnRemove_1.insets = new Insets(0, 0, 10, 0);
 		gbc_btnRemove_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnRemove_1.gridx = 4;
-		gbc_btnRemove_1.gridy = 1;
+		gbc_btnRemove_1.gridy = 2;
 		ContactListJPanel.add(btnRemove_1, gbc_btnRemove_1);
 		
 		JPanel ContactDetailJPanel = new JPanel();
