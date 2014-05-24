@@ -12,9 +12,11 @@ public class ContactStore extends Observable implements Observer {
 	private int addContactIndex;
 	private int removeContactIndex;
 	
-	public void addContact(){
+	//creates new contact and adds to list.
+	public Contact getNewContact(){
 		Contact newContact = new Contact();
 		addContact(newContact);
+		return newContact;
 	}
 
 	public void addContact(Contact newContact) {
@@ -43,7 +45,7 @@ public class ContactStore extends Observable implements Observer {
 		notifyObservers(contact);
 	}
 	
-	public Contact getContactAt(int index){
+	public Contact getContact(int index){
 		if (index>=contactList.size()){
 			index=contactList.size()-1;
 		}
@@ -87,6 +89,10 @@ public class ContactStore extends Observable implements Observer {
 	}
 	public int getContactIndex(Contact contact) {
 		return contactList.indexOf(contact);
+	}
+	
+	public List<Contact> getContacts(){
+		return contactList;
 	}
 
 
