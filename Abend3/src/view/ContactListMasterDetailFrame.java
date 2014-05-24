@@ -137,7 +137,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc__contactJList = new GridBagConstraints();
 		gbc__contactJList.gridheight = 3;
 		gbc__contactJList.fill = GridBagConstraints.BOTH;
-		gbc__contactJList.insets = new Insets(0, 0, 5, 5);
+		gbc__contactJList.insets = new Insets(0, 5, 5, 5);
 		gbc__contactJList.gridwidth = 3;
 		gbc__contactJList.gridx = 0;
 		gbc__contactJList.gridy = 0;
@@ -161,6 +161,13 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc_btnAdd.gridx = 1;
 		gbc_btnAdd.gridy = 3;
 		ContactListJPanel.add(btnAdd, gbc_btnAdd);
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addButtonPressed();
+			}
+		});		
 		
 		btnRemove = new JButton("Remove");
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
@@ -168,6 +175,13 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc_btnRemove.gridx = 2;
 		gbc_btnRemove.gridy = 3;
 		ContactListJPanel.add(btnRemove, gbc_btnRemove);
+		btnRemove.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeButtonPressed();
+			}
+		});
 		
 		JPanel ContactDetailJPanel = new JPanel();
 		frame.getContentPane().add(ContactDetailJPanel);
@@ -496,6 +510,15 @@ public class ContactListMasterDetailFrame implements Observer {
 		}	
 	}
 
+	private void addButtonPressed() {
+		Contact newContact = new Contact();
+		_contactStore.addContact(newContact);
+		_contactJList.updateUI();
+	}
+	
+	private void removeButtonPressed() {
+		
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
