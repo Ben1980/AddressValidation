@@ -10,9 +10,11 @@ import viewModels.ContactStoreJListModel;
 import domain.Contact;
 //import domain.ContactStore;
 
-public class ContactListCellRenderer implements ListCellRenderer<Contact> {
+public class ContactListCellRenderer extends JLabel implements ListCellRenderer<Contact> {
 
-	private JLabel _label = new JLabel();
+	public ContactListCellRenderer(){
+		setOpaque(/*isOpaque*/true);
+	}
 //	private ContactStore _contactStore;
 //	
 //	public ContactListCellRenderer(ContactStore contactStore) {
@@ -24,10 +26,11 @@ public class ContactListCellRenderer implements ListCellRenderer<Contact> {
 			JList<? extends Contact> list, Contact value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 		// TODO Auto-generated method stub
-		_label.setText(value.getLastName());
-		_label.setBackground(Color.RED);
-		_label.setForeground(Color.WHITE);		
-		return _label;
+		setText(value.getLastName());
+		setBackground(Color.RED);
+		setForeground(Color.WHITE);
+		
+		return this;
 	}
 
 }

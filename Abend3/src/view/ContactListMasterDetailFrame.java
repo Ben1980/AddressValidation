@@ -257,10 +257,11 @@ public class ContactListMasterDetailFrame implements Observer {
 		return _contactJList;
 	}
 	
-	private void initializeContactList(JList<Contact> list) {
+	private void initializeContactList(JList<Contact> contactList) {
 		if(_contactStore != null){
-			list.setModel(new ContactStoreJListModel(_contactStore));
-			list.repaint();	
+			contactList.setCellRenderer(new ContactListCellRenderer());
+			contactList.setModel(new ContactStoreJListModel(_contactStore));
+			contactList.repaint();	
 		}
 		
 		//list.setModel();
