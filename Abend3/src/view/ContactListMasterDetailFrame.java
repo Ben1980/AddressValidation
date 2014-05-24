@@ -117,7 +117,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	private void initialize() {
 		frame = new JFrame();
 		//TODO: change dimension size!
-		frame.setMinimumSize(new Dimension(600, 300));
+		frame.setMinimumSize(new Dimension(650, 300));
 		frame.setBounds(100, 100, 846, 549);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
