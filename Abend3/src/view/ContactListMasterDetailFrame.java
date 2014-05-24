@@ -391,6 +391,13 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc_btnCancel.gridx = 0;
 		gbc_btnCancel.gridy = 7;
 		ContactDetailJPanel.add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Nothing saved");
+			}
+		});
 		
 		saveButton = new JButton("Save");
 		GridBagConstraints gbc_saveButton = new GridBagConstraints();
