@@ -11,8 +11,10 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.ListCellRenderer;
 
 import util.SimpleValidator;
+import viewModels.ContactStoreJListModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -27,16 +29,20 @@ import domain.ContactStore;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Window;
 import java.sql.BatchUpdateException;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
 import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 public class ContactListMasterDetailFrame implements Observer {
@@ -52,6 +58,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	private JLabel telefonError;
 	private ContactStore _contactStore;
 	private JPanel ContactListJPanel;
+	private JList<Contact> _contactJList;
 
 	private JTextField getNameField()
 	{
@@ -232,9 +239,12 @@ public class ContactListMasterDetailFrame implements Observer {
 					frame.getContentPane().add(ContactListJPanel);
 					ContactListJPanel.setLayout(null);
 					
-					JList list = new JList();
-					list.setBounds(167, 182, -123, -177);
-					ContactListJPanel.add(list);
+					_contactJList = new JList<Contact>();
+					_contactJList.setBounds(20, 41, 152, 174);
+					
+					ContactListJPanel.add(_contactJList);
+					initializeContactList(getContactjList());
+					
 					saveButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							System.out.println("Saved record for: "+getNameField().getText()+" "+getFirstNameField().getText());
@@ -243,6 +253,18 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 	}
 	
+	private JList<Contact> getContactjList(){
+		return _contactJList;
+	}
+	
+	private void initializeContactList(JList<Contact> list) {
+		if(_contactStore != null){
+			list.setModel(new ContactStoreJListModel(_contactStore));
+			list.repaint();	
+		}
+		
+		//list.setModel();
+	}
 	private boolean hasAtLeastOneName () {
 		if (getNameField().getText().equals("") && getFirstNameField().getText().equals("")){
 			getNamesErrorLabel().setVisible(true);
