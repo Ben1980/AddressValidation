@@ -46,6 +46,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.GridLayout;
 import javax.swing.Box;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 
 public class ContactListMasterDetailFrame implements Observer {
@@ -124,21 +127,22 @@ public class ContactListMasterDetailFrame implements Observer {
 		frame.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
 		ContactListJPanel = new JPanel();
+		ContactListJPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frame.getContentPane().add(ContactListJPanel);
 		GridBagLayout gbl_ContactListJPanel = new GridBagLayout();
-		gbl_ContactListJPanel.columnWidths = new int[]{84, 64, 89, 0};
-		gbl_ContactListJPanel.rowHeights = new int[]{41, 174, 42, 25, 0};
-		gbl_ContactListJPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_ContactListJPanel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ContactListJPanel.columnWidths = new int[]{71, 61, 89, 71, 71, 0};
+		gbl_ContactListJPanel.rowHeights = new int[]{333, 139, 25, 0};
+		gbl_ContactListJPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ContactListJPanel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		ContactListJPanel.setLayout(gbl_ContactListJPanel);
 		
 		_contactJList = new JList<Contact>();
 		_contactJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		GridBagConstraints gbc__contactJList = new GridBagConstraints();
-		gbc__contactJList.gridheight = 3;
+		gbc__contactJList.gridheight = 2;
 		gbc__contactJList.fill = GridBagConstraints.BOTH;
-		gbc__contactJList.insets = new Insets(0, 5, 5, 5);
-		gbc__contactJList.gridwidth = 3;
+		gbc__contactJList.insets = new Insets(10, 10, 5, 5);
+		gbc__contactJList.gridwidth = 5;
 		gbc__contactJList.gridx = 0;
 		gbc__contactJList.gridy = 0;
 		ContactListJPanel.add(_contactJList, gbc__contactJList);
@@ -148,18 +152,18 @@ public class ContactListMasterDetailFrame implements Observer {
 		txtSearch.setText("Search...");
 		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
 		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSearch.insets = new Insets(0, 0, 0, 5);
+		gbc_txtSearch.insets = new Insets(0, 10, 10, 5);
 		gbc_txtSearch.gridx = 0;
-		gbc_txtSearch.gridy = 3;
+		gbc_txtSearch.gridy = 2;
 		ContactListJPanel.add(txtSearch, gbc_txtSearch);
 		txtSearch.setColumns(10);
 		
 		JButton btnAdd = new JButton("Add");
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnAdd.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAdd.insets = new Insets(0, 0, 10, 5);
 		gbc_btnAdd.gridx = 1;
-		gbc_btnAdd.gridy = 3;
+		gbc_btnAdd.gridy = 2;
 		ContactListJPanel.add(btnAdd, gbc_btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
 			
@@ -172,8 +176,9 @@ public class ContactListMasterDetailFrame implements Observer {
 		btnRemove = new JButton("Remove");
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
 		gbc_btnRemove.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnRemove.insets = new Insets(0, 0, 10, 5);
 		gbc_btnRemove.gridx = 2;
-		gbc_btnRemove.gridy = 3;
+		gbc_btnRemove.gridy = 2;
 		ContactListJPanel.add(btnRemove, gbc_btnRemove);
 		btnRemove.addActionListener(new ActionListener() {
 			
@@ -183,13 +188,31 @@ public class ContactListMasterDetailFrame implements Observer {
 			}
 		});
 		
+		JButton btnUndo = new JButton("Undo");
+		GridBagConstraints gbc_btnUndo = new GridBagConstraints();
+		gbc_btnUndo.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnUndo.insets = new Insets(0, 0, 10, 5);
+		gbc_btnUndo.gridx = 3;
+		gbc_btnUndo.gridy = 2;
+		ContactListJPanel.add(btnUndo, gbc_btnUndo);
+		
+		JButton btnRemove_1 = new JButton("Redo");
+		GridBagConstraints gbc_btnRemove_1 = new GridBagConstraints();
+		gbc_btnRemove_1.insets = new Insets(0, 0, 10, 5);
+		gbc_btnRemove_1.anchor = GridBagConstraints.NORTH;
+		gbc_btnRemove_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnRemove_1.gridx = 4;
+		gbc_btnRemove_1.gridy = 2;
+		ContactListJPanel.add(btnRemove_1, gbc_btnRemove_1);
+		
 		JPanel ContactDetailJPanel = new JPanel();
+		ContactDetailJPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frame.getContentPane().add(ContactDetailJPanel);
 		GridBagLayout gbl_ContactDetailJPanel = new GridBagLayout();
-		gbl_ContactDetailJPanel.columnWidths = new int[]{87, 112, 131, 70, 0};
+		gbl_ContactDetailJPanel.columnWidths = new int[]{87, 88, 131, 70, 0};
 		gbl_ContactDetailJPanel.rowHeights = new int[]{17, 19, 19, 32, 32, 15, 315, 25, 0};
-		gbl_ContactDetailJPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_ContactDetailJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ContactDetailJPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_ContactDetailJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		ContactDetailJPanel.setLayout(gbl_ContactDetailJPanel);
 		
 		JLabel lblKontaktDetails = new JLabel("Kontakt Details");
@@ -205,7 +228,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		JLabel lblName = new JLabel("Name:");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblName.insets = new Insets(0, 5, 5, 5);
 		gbc_lblName.gridx = 0;
 		gbc_lblName.gridy = 1;
 		ContactDetailJPanel.add(lblName, gbc_lblName);
@@ -245,7 +268,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		JLabel lblNewLabel = new JLabel("Vorname:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.insets = new Insets(0, 5, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 2;
 		ContactDetailJPanel.add(lblNewLabel, gbc_lblNewLabel);
@@ -272,7 +295,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
 		gbc_lblEmail.anchor = GridBagConstraints.SOUTH;
 		gbc_lblEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmail.insets = new Insets(0, 5, 5, 5);
 		gbc_lblEmail.gridx = 0;
 		gbc_lblEmail.gridy = 3;
 		ContactDetailJPanel.add(lblEmail, gbc_lblEmail);
@@ -312,7 +335,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc_lblTelefon = new GridBagConstraints();
 		gbc_lblTelefon.anchor = GridBagConstraints.SOUTH;
 		gbc_lblTelefon.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblTelefon.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTelefon.insets = new Insets(0, 5, 5, 5);
 		gbc_lblTelefon.gridx = 0;
 		gbc_lblTelefon.gridy = 4;
 		ContactDetailJPanel.add(lblTelefon, gbc_lblTelefon);
@@ -359,7 +382,7 @@ public class ContactListMasterDetailFrame implements Observer {
 			GridBagConstraints gbc_lblNotizen = new GridBagConstraints();
 			gbc_lblNotizen.anchor = GridBagConstraints.NORTH;
 			gbc_lblNotizen.fill = GridBagConstraints.HORIZONTAL;
-			gbc_lblNotizen.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNotizen.insets = new Insets(0, 5, 5, 5);
 			gbc_lblNotizen.gridx = 0;
 			gbc_lblNotizen.gridy = 5;
 			ContactDetailJPanel.add(lblNotizen, gbc_lblNotizen);
@@ -368,8 +391,8 @@ public class ContactListMasterDetailFrame implements Observer {
 			notesArea.setColumns(20);
 			GridBagConstraints gbc_notesArea = new GridBagConstraints();
 			gbc_notesArea.fill = GridBagConstraints.BOTH;
-			gbc_notesArea.insets = new Insets(0, 0, 5, 5);
-			gbc_notesArea.gridwidth = 2;
+			gbc_notesArea.insets = new Insets(0, 5, 5, 10);
+			gbc_notesArea.gridwidth = 4;
 			gbc_notesArea.gridx = 0;
 			gbc_notesArea.gridy = 6;
 			ContactDetailJPanel.add(notesArea, gbc_notesArea);
@@ -387,7 +410,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		JButton btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.anchor = GridBagConstraints.NORTHEAST;
-		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancel.insets = new Insets(0, 5, 10, 5);
 		gbc_btnCancel.gridx = 0;
 		gbc_btnCancel.gridy = 7;
 		ContactDetailJPanel.add(btnCancel, gbc_btnCancel);
@@ -403,7 +426,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc_saveButton = new GridBagConstraints();
 		gbc_saveButton.anchor = GridBagConstraints.NORTH;
 		gbc_saveButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_saveButton.insets = new Insets(0, 0, 0, 5);
+		gbc_saveButton.insets = new Insets(0, 0, 10, 5);
 		gbc_saveButton.gridx = 1;
 		gbc_saveButton.gridy = 7;
 		ContactDetailJPanel.add(saveButton, gbc_saveButton);
