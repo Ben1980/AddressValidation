@@ -3,6 +3,7 @@ package application;
 import javax.swing.SwingUtilities;
 
 import domain.Contact;
+import domain.ContactStore;
 import view.ContactListMasterDetailFrame;
 
 public class Application {
@@ -11,11 +12,11 @@ public class Application {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Contact newContact = new Contact();
+					ContactStore contactStore = new ContactStore();
 					
-					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(newContact);
+					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(contactStore);
 					
-					ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(newContact);
+					ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(contactStore);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -1,3 +1,5 @@
-/domain
 /application
+/domain
+/test
+/util
 /view
