@@ -517,7 +517,9 @@ public class ContactListMasterDetailFrame implements Observer {
 	}
 	
 	private void removeButtonPressed() {
-		
+		Contact contact = _contactJList.getSelectedValue();
+		_contactStore.removeContact(contact);
+		_contactJList.updateUI();
 	}
 
 	@Override
