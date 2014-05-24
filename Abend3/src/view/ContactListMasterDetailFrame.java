@@ -211,7 +211,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbl_ContactDetailJPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		ContactDetailJPanel.setLayout(gbl_ContactDetailJPanel);
 		
-		JLabel lblKontaktDetails = new JLabel("Kontakt Details");
+		JLabel lblKontaktDetails = new JLabel("Contact Details");
 		GridBagConstraints gbc_lblKontaktDetails = new GridBagConstraints();
 		gbc_lblKontaktDetails.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblKontaktDetails.insets = new Insets(0, 0, 5, 5);
@@ -221,7 +221,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		ContactDetailJPanel.add(lblKontaktDetails, gbc_lblKontaktDetails);
 		lblKontaktDetails.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblName = new JLabel("Name:");
+		JLabel lblName = new JLabel("Surname:");
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblName.insets = new Insets(0, 5, 5, 5);
@@ -261,7 +261,7 @@ public class ContactListMasterDetailFrame implements Observer {
 				namesErrorLabel.setVisible(false);
 				namesErrorLabel.setToolTipText("Vorname und Nachmame duerfen nicht beide leer sein");
 		
-		JLabel lblNewLabel = new JLabel("Vorname:");
+		JLabel lblNewLabel = new JLabel("First Name");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel.insets = new Insets(0, 5, 5, 5);
@@ -327,10 +327,9 @@ public class ContactListMasterDetailFrame implements Observer {
 		mailError.setToolTipText("eMail darf nicht leer sein");
 		mailError.setIcon(new ImageIcon(ContactListMasterDetailFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
 		
-		JLabel lblTelefon = new JLabel("Telefon:");
+		JLabel lblTelefon = new JLabel("Telephone:");
 		GridBagConstraints gbc_lblTelefon = new GridBagConstraints();
-		gbc_lblTelefon.anchor = GridBagConstraints.SOUTH;
-		gbc_lblTelefon.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTelefon.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblTelefon.insets = new Insets(0, 5, 5, 5);
 		gbc_lblTelefon.gridx = 0;
 		gbc_lblTelefon.gridy = 4;
@@ -374,7 +373,7 @@ public class ContactListMasterDetailFrame implements Observer {
 			telefonError.setToolTipText("Telefon darf nicht leer sein");
 			telefonError.setIcon(new ImageIcon(ContactListMasterDetailFrame.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
 			
-			JLabel lblNotizen = new JLabel("Notizen:");
+			JLabel lblNotizen = new JLabel("Notes:");
 			GridBagConstraints gbc_lblNotizen = new GridBagConstraints();
 			gbc_lblNotizen.anchor = GridBagConstraints.NORTH;
 			gbc_lblNotizen.fill = GridBagConstraints.HORIZONTAL;
