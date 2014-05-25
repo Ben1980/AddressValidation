@@ -537,8 +537,10 @@ public class ContactListMasterDetailFrame implements Observer {
 
 	private void addButtonPressed() {
 		Contact newContact = new Contact();
+		newContact.setLastName("*new*");
 		_contactStore.addContact(newContact);
-		_contactJList.updateUI();
+		_contactJList.setSelectedIndex(_contactStore.getLength()-1);
+		//_contactJList.updateUI();
 	}
 	
 	private void removeButtonPressed() {
