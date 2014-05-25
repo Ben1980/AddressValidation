@@ -549,12 +549,17 @@ public class ContactListMasterDetailFrame implements Observer {
 			_contactJList.setSelectedIndex(selectedIndex + moveDirection);
 		}
 		_contactStore.removeContact(contact);
-		_contactJList.updateUI();
+		//_contactJList.updateUI();
 		_contactJList.setSelectedIndex(selectedIndex);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
+		
+		if(o instanceof ContactStore){
+			_contactJList.updateUI();
+		}
+		
 		if(!(o instanceof Contact)){
 			return;
 		}
