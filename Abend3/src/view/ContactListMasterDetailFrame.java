@@ -544,7 +544,12 @@ public class ContactListMasterDetailFrame implements Observer {
 	private void removeButtonPressed() {
 		Contact contact = _contactJList.getSelectedValue();
 		_contactStore.removeContact(contact);
+		int previousIndex = _contactJList.getSelectedIndex();
 		_contactJList.updateUI();
+		if(previousIndex >= _contactStore.getLength()){
+			previousIndex--;
+		}
+		_contactJList.setSelectedIndex(previousIndex);
 	}
 
 	@Override
