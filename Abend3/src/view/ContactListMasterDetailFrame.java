@@ -542,14 +542,15 @@ public class ContactListMasterDetailFrame implements Observer {
 	}
 	
 	private void removeButtonPressed() {
-		Contact contact = _contactJList.getSelectedValue();
-		_contactStore.removeContact(contact);
-		int previousIndex = _contactJList.getSelectedIndex();
-		_contactJList.updateUI();
-		if(previousIndex >= _contactStore.getLength()){
-			previousIndex--;
+		Contact contact = _contactJList.getSelectedValue();		
+		int selectedIndex = _contactJList.getSelectedIndex();
+		if(_contactStore.getLength() > 0){
+			int moveDirection = selectedIndex == 0 ? 1 : -1; 
+			_contactJList.setSelectedIndex(selectedIndex + moveDirection);
 		}
-		_contactJList.setSelectedIndex(previousIndex);
+		_contactStore.removeContact(contact);
+		_contactJList.updateUI();
+		_contactJList.setSelectedIndex(selectedIndex);
 	}
 
 	@Override
