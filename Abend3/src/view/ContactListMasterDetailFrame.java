@@ -252,8 +252,7 @@ public class ContactListMasterDetailFrame implements Observer {
 						public void actionPerformed(ActionEvent arg0) {
 							System.out.println("Saved record for: "+getNameField().getText()+" "+getFirstNameField().getText());
 						}
-					});
-		
+					});		
 	}
 	
 	private JList<Contact> getContactjList(){
