@@ -558,6 +558,8 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		if(o instanceof ContactStore){
 			_contactJList.updateUI();
+			btnRemove.setEnabled(_contactStore.getLength() > 0);
+			
 		}
 		
 		if(!(o instanceof Contact)){
