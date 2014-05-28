@@ -8,6 +8,8 @@ public class Contact extends Observable {
 	private String firstName;
 	private String email;
 	private String telNr;
+	private String notes; 
+	private int contactId;
 	
 	public Contact(){
 		
@@ -19,6 +21,8 @@ public class Contact extends Observable {
 		this.firstName = toCopyContact.firstName;
 		this.email = toCopyContact.email;
 		this.telNr = toCopyContact.telNr;
+		this.notes = toCopyContact.notes;
+		this.contactId = toCopyContact.contactId;
 	}
 	
 	public Contact Copy(){
@@ -37,7 +41,10 @@ public class Contact extends Observable {
 		return (firstToCompare.firstName == secondToCompare.firstName)
 				&& (firstToCompare.lastName == secondToCompare.lastName)
 				&& (firstToCompare.email == secondToCompare.email)
-				&& (firstToCompare.telNr == secondToCompare.telNr);
+				&& (firstToCompare.telNr == secondToCompare.telNr)
+				&& (firstToCompare.contactId == secondToCompare.contactId)
+				&& (firstToCompare.notes == secondToCompare.notes);
+				
 	}
 	
 	public String getTelNr() {
@@ -88,5 +95,23 @@ public class Contact extends Observable {
 		String oldValue = this.lastName;
 		this.lastName = lastName;
 		setChanged(oldValue, lastName, "lastName");
-	}	 	
+	}	 
+	
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {		
+		String oldValue = this.notes;		
+		this.notes = notes;
+		setChanged(oldValue, notes, "notes");
+
+	}
+	
+	public int getContactId() {
+		return contactId;
+	}
+	public void setContactId(int contactId) {				
+		this.contactId = contactId;
+
+	}
 }
