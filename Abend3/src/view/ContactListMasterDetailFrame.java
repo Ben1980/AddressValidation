@@ -44,10 +44,15 @@ import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import java.awt.GridLayout;
+
 import javax.swing.Box;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
+import org.junit.runner.manipulation.NoTestsRemainException;
+
 import java.awt.Color;
 
 
@@ -69,7 +74,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	private Contact _copySelectedContact;
 	private JTextField txtSearch;
 	private JButton btnRemove;
-
+    private JTextArea notesArea;
 	private JTextField getNameField()
 	{
 		return nameField;
@@ -100,6 +105,11 @@ public class ContactListMasterDetailFrame implements Observer {
 	{
 		return telefonError;
 	}	 
+	
+	private JTextArea getNotesField()
+	{
+		return notesArea;
+	}
 
 	/**
 	 * Create the application.
@@ -382,7 +392,7 @@ public class ContactListMasterDetailFrame implements Observer {
 			gbc_lblNotizen.gridy = 5;
 			ContactDetailJPanel.add(lblNotizen, gbc_lblNotizen);
 		
-			JTextArea notesArea = new JTextArea();
+			notesArea = new JTextArea();
 			notesArea.setColumns(20);
 			GridBagConstraints gbc_notesArea = new GridBagConstraints();
 			gbc_notesArea.fill = GridBagConstraints.BOTH;
@@ -584,6 +594,10 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		if(updateAll || (arg == "telNr")){
 			getTelNrField().setText(contact.getTelNr());
+		}
+		
+		if(updateAll || (arg == "notes")){
+			getNotesField().setText(contact.getNotes());
 		}
 	
 		checkSaveable();
