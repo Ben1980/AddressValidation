@@ -31,6 +31,12 @@ public class ContactStore extends Observable implements Observer {
 
 		doNotify();
 	}
+	
+	public boolean isEmpty(){
+		return contactList.size() == 0;
+	}
+	
+	
 	private void doNotify() {
 		setChanged();
 		notifyObservers();

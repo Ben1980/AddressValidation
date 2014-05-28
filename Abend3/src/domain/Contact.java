@@ -11,9 +11,14 @@ public class Contact extends Observable {
 	private String notes; 
 	private int contactId;
 	
+	private static Contact emptyContact = new Contact();
+	
+	
 	public Contact(){
 		
 	}
+	
+	
 	
 	//makes a copy of the contact (lastname, firstname, email, telnr)
 	public Contact(Contact toCopyContact){
@@ -28,6 +33,16 @@ public class Contact extends Observable {
 	public Contact Copy(){
 		return new Contact(this);
 	}
+	
+	public static Contact GetEmptyContact()
+	{
+		return emptyContact;
+	}
+	
+	public boolean IsEmpty()
+	{
+		return this == emptyContact; 
+	} 
 	
 	public static boolean AreSameContact(Contact firstToCompare, Contact secondToCompare){
 		if((firstToCompare == null) && (secondToCompare == null)){

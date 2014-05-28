@@ -18,9 +18,9 @@ public class Application {
 					//sample contact
 					addSampleDataToStore(contactStore);
 										
-					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(contactStore);
-					//TODO: second frame
-					//ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(contactStore);
+					ContactListMasterDetailFrame window = new ContactListMasterDetailFrame(contactStore, "User A");
+							
+					ContactListMasterDetailFrame window2 = new ContactListMasterDetailFrame(contactStore, "User B");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
@@ -75,6 +76,13 @@ public class ContactListMasterDetailFrame implements Observer {
 	private JTextField txtSearch;
 	private JButton btnRemove;
     private JTextArea notesArea;
+    private JPanel contactDetailPanel;
+    
+    private JPanel getContactDetailPanel()
+    {
+    	return contactDetailPanel;
+    }
+    
 	private JTextField getNameField()
 	{
 		return nameField;
@@ -114,11 +122,12 @@ public class ContactListMasterDetailFrame implements Observer {
 	/**
 	 * Create the application.
 	 */
-	public ContactListMasterDetailFrame  (ContactStore contactStore) {
+	public ContactListMasterDetailFrame  (ContactStore contactStore, String userName) {
 		_contactStore = contactStore;
 		_contactStore.addObserver(this);
 		initialize();
 		frame.setVisible(true);
+		frame.setTitle(userName);
 	}
 
 	/**
@@ -156,8 +165,9 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc_txtSearch.gridy = 0;
 		ContactListJPanel.add(txtSearch, gbc_txtSearch);
 		txtSearch.setColumns(10);
-		
+		JScrollPane scrollPane = new JScrollPane();
 		_contactJList = new JList<Contact>();
+		scrollPane.setViewportView(_contactJList);
 		_contactJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		GridBagConstraints gbc__contactJList = new GridBagConstraints();
 		gbc__contactJList.fill = GridBagConstraints.BOTH;
@@ -165,7 +175,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc__contactJList.gridwidth = 5;
 		gbc__contactJList.gridx = 0;
 		gbc__contactJList.gridy = 1;
-		ContactListJPanel.add(_contactJList, gbc__contactJList);
+		ContactListJPanel.add(scrollPane, gbc__contactJList);
 		initializeContactList(getContactjList());
 		
 		JButton btnAdd = new JButton("Add");
@@ -183,6 +193,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		});		
 		
 		btnRemove = new JButton("Remove");
+		btnRemove.setEnabled(false);
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
 		gbc_btnRemove.insets = new Insets(0, 0, 10, 5);
 		gbc_btnRemove.gridx = 2;
@@ -212,6 +223,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		ContactListJPanel.add(btnRemove_1, gbc_btnRemove_1);
 		
 		JPanel ContactDetailJPanel = new JPanel();
+		contactDetailPanel = ContactDetailJPanel;
 		ContactDetailJPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frame.getContentPane().add(ContactDetailJPanel);
 		GridBagLayout gbl_ContactDetailJPanel = new GridBagLayout();
@@ -393,14 +405,26 @@ public class ContactListMasterDetailFrame implements Observer {
 			ContactDetailJPanel.add(lblNotizen, gbc_lblNotizen);
 		
 			notesArea = new JTextArea();
+			notesArea.setLineWrap(true);
 			notesArea.setColumns(20);
+			JScrollPane notesScrollPane = new JScrollPane();
+			notesScrollPane.setViewportView(notesArea);
 			GridBagConstraints gbc_notesArea = new GridBagConstraints();
 			gbc_notesArea.fill = GridBagConstraints.BOTH;
 			gbc_notesArea.insets = new Insets(0, 5, 5, 10);
 			gbc_notesArea.gridwidth = 4;
 			gbc_notesArea.gridx = 0;
 			gbc_notesArea.gridy = 6;
-			ContactDetailJPanel.add(notesArea, gbc_notesArea);
+			ContactDetailJPanel.add(notesScrollPane, gbc_notesArea);
+			
+			notesArea.addFocusListener(new FocusAdapter() {
+
+				@Override
+				public void focusLost(FocusEvent e) {
+					setNotes();
+				}	
+				
+			});
 		
 		Component horizontalGlue = Box.createHorizontalGlue();
 		GridBagConstraints gbc_horizontalGlue = new GridBagConstraints();
@@ -445,6 +469,10 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 	}
 	
+	protected void setNotes() {
+		_selectedContact.setNotes(getNotesField().getText());
+		
+	}
 	private JList<Contact> getContactjList(){
 		return _contactJList;
 	}
@@ -458,10 +486,13 @@ public class ContactListMasterDetailFrame implements Observer {
 				@Override
 				public void valueChanged(ListSelectionEvent e) {
 					// TODO Auto-generated method stub
+					
 					if(e.getFirstIndex() > -1){
+						
 						_selectedContact = _contactStore.getContact(getContactjList().getSelectedIndex());
 						_copySelectedContact = _selectedContact.Copy();
 						update(_selectedContact, "all");
+						enableSelectedListControls(/*enabled*/true);
 					}					
 				}
 			});
@@ -470,22 +501,28 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		//list.setModel();
 	}
+	
+	private void enableSelectedListControls(boolean enabled)
+	{
+		btnRemove.setEnabled(enabled);
+	}
+	
 	private boolean hasAtLeastOneName () {
 		if (getNameField().getText().equals("") && getFirstNameField().getText().equals("")){
-			getNamesErrorLabel().setVisible(true);
+			getNamesErrorLabel().setVisible(showErrorLabel(/*showLabel*/true));
 			return false;
 		}else{
-			getNamesErrorLabel().setVisible(false);
+			getNamesErrorLabel().setVisible(showErrorLabel(/*showLabel*/false));
 			return true;			
 		}
 	}
 
 	private boolean isValidEmail () {
 		if (SimpleValidator.isValidEmail(getEMailField().getText())) {
-			getEMailErrorLabel().setVisible(false);
+			getEMailErrorLabel().setVisible(showErrorLabel(/*showLabel*/false));
 			return true;
 		}else{
-			getEMailErrorLabel().setVisible(true);
+			getEMailErrorLabel().setVisible(showErrorLabel(/*showLabel*/true));
 			return false;		
 		}
 	}
@@ -493,15 +530,21 @@ public class ContactListMasterDetailFrame implements Observer {
 
 	private boolean isValidTelNr() {
 		if (SimpleValidator.isValidTelNr(getTelNrField().getText())) {
-			getTelNrErrorLabel().setVisible(false);
+			getTelNrErrorLabel().setVisible(showErrorLabel(/*showLabel*/false));
 			return true;
 		}else{
-			getTelNrErrorLabel().setVisible(true);
+			getTelNrErrorLabel().setVisible(showErrorLabel(/*showLabel*/true));
 			return false;		
 		}
 	}
 
-	private void checkSaveable() {
+	//error label is never shown if _selectedContact.IsEmpty
+	private boolean showErrorLabel(boolean showLabel)
+	{		
+		return !_selectedContact.IsEmpty() && showLabel;
+	}
+	
+	private void checkSaveable() {		
 		Boolean isOk = hasAtLeastOneName();
 		
 		isOk = isValidEmail() && isOk; 
@@ -546,23 +589,43 @@ public class ContactListMasterDetailFrame implements Observer {
 	}
 
 	private void addButtonPressed() {
+		//TODO: 
 		Contact newContact = new Contact();
 		newContact.setLastName("*new*");
 		_contactStore.addContact(newContact);
+		_selectedContact = newContact;
+		_copySelectedContact = newContact.Copy();
 		_contactJList.setSelectedIndex(_contactStore.getLength()-1);
+		update(_selectedContact, "all");
 		//_contactJList.updateUI();
 	}
 	
-	private void removeButtonPressed() {
-		Contact contact = _contactJList.getSelectedValue();		
+	private void removeButtonPressed() {		
 		int selectedIndex = _contactJList.getSelectedIndex();
+		Contact contact = _contactJList.getSelectedValue();
+		
 		if(_contactStore.getLength() > 0){
 			int moveDirection = selectedIndex == 0 ? 1 : -1; 
 			_contactJList.setSelectedIndex(selectedIndex + moveDirection);
 		}
+		
 		_contactStore.removeContact(contact);
 		//_contactJList.updateUI();
 		_contactJList.setSelectedIndex(selectedIndex);
+		
+		if(_contactStore.isEmpty())
+		{
+			_selectedContact = Contact.GetEmptyContact();
+			_copySelectedContact = _selectedContact;	
+		}
+		
+		update(_selectedContact, "all");
+	}
+	
+	
+	private boolean noItemSelected(JList list)
+	{
+		return list.getSelectedIndex() < 0;
 	}
 
 	@Override
@@ -570,8 +633,12 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		if(o instanceof ContactStore){
 			_contactJList.updateUI();
-			btnRemove.setEnabled(_contactStore.getLength() > 0);
-			
+			boolean hasListItems = (_contactStore.getLength() > 0);
+			btnRemove.setEnabled(hasListItems && (getContactjList().getSelectedIndex() >= 0));
+			for(Component component:getContactDetailPanel().getComponents()){
+			  component.setEnabled(hasListItems);	
+			}
+			 
 		}
 		
 		if(!(o instanceof Contact)){
