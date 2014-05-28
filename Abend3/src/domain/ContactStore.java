@@ -11,10 +11,12 @@ public class ContactStore extends Observable implements Observer {
 	private int editedContactIndex;
 	private int addContactIndex;
 	private int removeContactIndex;
+	private int contactCounter = 0;
 	
 	//creates new contact and adds to list.
 	public Contact getNewContact(){
 		Contact newContact = new Contact();
+		newContact.setContactId(++contactCounter);
 		addContact(newContact);
 		return newContact;
 	}
