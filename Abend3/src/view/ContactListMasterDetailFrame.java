@@ -79,6 +79,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	private String _userName;
 	private JButton lockButton;
 	private JButton btnCancel;
+	private JButton btnAdd;
 
 	private JPanel getContactDetailPanel() {
 		return contactDetailPanel;
@@ -131,6 +132,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		initialize();
 		frame.setVisible(true);
 		frame.setTitle(userName);
+		enableContactDetails(/*enable*/false);
 	}
 
 	/**
@@ -202,7 +204,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		gbc_btnLock.gridy = 2;
 		ContactListJPanel.add(lockButton, gbc_btnLock);
 
-		JButton btnAdd = new JButton("Add");
+		btnAdd = new JButton("Add");
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 10, 5);
 		gbc_btnAdd.gridx = 2;
@@ -486,6 +488,8 @@ public class ContactListMasterDetailFrame implements Observer {
 				_copySelectedContact = _selectedContact.Copy();
 				_selectedContact.UnLock(_userName);
 				update(_selectedContact, "all");
+				update(_selectedContact, "lock");
+				
 			}
 		});
 
@@ -506,6 +510,8 @@ public class ContactListMasterDetailFrame implements Observer {
 				_selectedContact.setTelNr(_copySelectedContact.getTelNr());
 				_selectedContact.setNotes(_copySelectedContact.getNotes());
 				_selectedContact.UnLock(_userName);
+				_copySelectedContact = _selectedContact.Copy();
+				update(_selectedContact, "lock");
 			}
 		});
 
@@ -533,7 +539,7 @@ public class ContactListMasterDetailFrame implements Observer {
 				public void valueChanged(ListSelectionEvent e) {
 
 					if (e.getFirstIndex() > -1) {
-						if (_contactStore.getLength() > 0) {
+						if (!_contactStore.isEmpty()) {
 							_selectedContact = _contactStore
 									.getContact(getContactjList()
 											.getSelectedIndex());
@@ -557,6 +563,9 @@ public class ContactListMasterDetailFrame implements Observer {
 
 		getLockButton().setEnabled(enabled);
 		btnRemove.setEnabled(enabled);
+		btnAdd.setEnabled(enabled 
+								|| (_selectedContact == null) 
+								|| (_selectedContact.isEmpty()));
 	}
 
 	private boolean hasAtLeastOneName() {
@@ -669,7 +678,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		int selectedIndex = _contactJList.getSelectedIndex();
 		Contact contact = _contactJList.getSelectedValue();
 
-		if (_contactStore.getLength() > 0) {
+		if (!_contactStore.isEmpty()) {
 			int moveDirection = selectedIndex == 0 ? 1 : -1;
 			_contactJList.setSelectedIndex(selectedIndex + moveDirection);
 		}
@@ -681,9 +690,11 @@ public class ContactListMasterDetailFrame implements Observer {
 		if (_contactStore.isEmpty()) {
 			_selectedContact = Contact.getEmptyContact();
 			_copySelectedContact = _selectedContact;
+			btnAdd.setEnabled(true);
 		}
 
 		update(_selectedContact, "all");
+		
 	}
 
 	private boolean noItemSelected(JList list) {
@@ -699,14 +710,12 @@ public class ContactListMasterDetailFrame implements Observer {
 
 		if (o instanceof ContactStore) {
 			_contactJList.updateUI();
-			boolean hasListItems = (_contactStore.getLength() > 0);
+			boolean hasListItems = !_contactStore.isEmpty();
 			// btnRemove.setEnabled(hasListItems &&
 			// (getContactjList().getSelectedIndex() >= 0));
 			enableSelectedListControls(hasListItems
 					&& (getContactjList().getSelectedIndex() >= 0));
-			for (Component component : getContactDetailPanel().getComponents()) {
-				component.setEnabled(hasListItems);
-			}
+			enableContactDetails(hasListItems);
 		}
 
 		if (!(o instanceof Contact)) {
@@ -737,10 +746,16 @@ public class ContactListMasterDetailFrame implements Observer {
 		}
 
 		if (arg == "lock") {
-
+			enableContactDetails(isSelectedContactLockedByThisUser());
 			_contactJList.updateUI();
 		}
 
 		checkSaveable();
+	}
+
+	private void enableContactDetails(boolean enable) {
+		for (Component component : getContactDetailPanel().getComponents()) {
+			component.setEnabled(enable);
+		}
 	}
 }
