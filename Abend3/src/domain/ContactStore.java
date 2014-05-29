@@ -103,5 +103,16 @@ public class ContactStore extends Observable implements Observer {
 		return contactList;
 	}
 
+	
+	public boolean hasNoLockedItemsByUser(String userName) {
+		for(Contact contact:this.contactList){
+			if(contact.isLocked() && !contact.isLockedByAnotherUser(userName))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 }

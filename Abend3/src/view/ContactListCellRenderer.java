@@ -11,9 +11,11 @@ import domain.Contact;
 //import domain.ContactStore;
 
 public class ContactListCellRenderer extends JLabel implements ListCellRenderer<Contact> {
-
-	public ContactListCellRenderer(){
+	private String _userName;
+	
+	public ContactListCellRenderer(String userName){
 		setOpaque(/*isOpaque*/true);
+		_userName = userName;
 	}
 //	private ContactStore _contactStore;
 //	
@@ -46,6 +48,21 @@ public class ContactListCellRenderer extends JLabel implements ListCellRenderer<
 			contactText = contactText + contact.getFirstName();
 		}
 		
+		contactText += getLockedByText(contact);		
+		
+		return contactText;
+	}
+
+	private String getLockedByText(Contact contact) {
+		String contactText = "";
+		
+		if(contact.isLocked())
+		{
+			contactText += " *locked [" 
+							+ (contact.isLockedByAnotherUser(_userName)
+							? contact.getLockedByUserName() + "]" 
+							  : "by you]");				
+		}
 		return contactText;
 	}
 	

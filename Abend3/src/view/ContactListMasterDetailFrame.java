@@ -77,6 +77,8 @@ public class ContactListMasterDetailFrame implements Observer {
 	private JButton btnRemove;
     private JTextArea notesArea;
     private JPanel contactDetailPanel;
+	private String _userName;
+	private JButton lockButton;
     
     private JPanel getContactDetailPanel()
     {
@@ -119,15 +121,21 @@ public class ContactListMasterDetailFrame implements Observer {
 		return notesArea;
 	}
 
+	private JButton getLockButton()
+	{
+		return lockButton;
+	}
+	
 	/**
 	 * Create the application.
 	 */
 	public ContactListMasterDetailFrame  (ContactStore contactStore, String userName) {
 		_contactStore = contactStore;
 		_contactStore.addObserver(this);
+		_userName = userName;
 		initialize();
 		frame.setVisible(true);
-		frame.setTitle(userName);
+		frame.setTitle(userName);		
 	}
 
 	/**
@@ -149,16 +157,16 @@ public class ContactListMasterDetailFrame implements Observer {
 		ContactListJPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frame.getContentPane().add(ContactListJPanel);
 		GridBagLayout gbl_ContactListJPanel = new GridBagLayout();
-		gbl_ContactListJPanel.columnWidths = new int[]{71, 61, 89, 71, 71, 0};
+		gbl_ContactListJPanel.columnWidths = new int[]{71, 0, 61, 89, 71, 71, 0};
 		gbl_ContactListJPanel.rowHeights = new int[]{46, 497, 40, 0};
-		gbl_ContactListJPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ContactListJPanel.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_ContactListJPanel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		ContactListJPanel.setLayout(gbl_ContactListJPanel);
 		
 		txtSearch = new JTextField();
 		txtSearch.setText("Search...");
 		GridBagConstraints gbc_txtSearch = new GridBagConstraints();
-		gbc_txtSearch.gridwidth = 4;
+		gbc_txtSearch.gridwidth = 5;
 		gbc_txtSearch.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtSearch.insets = new Insets(0, 10, 10, 5);
 		gbc_txtSearch.gridx = 0;
@@ -172,16 +180,32 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc__contactJList = new GridBagConstraints();
 		gbc__contactJList.fill = GridBagConstraints.BOTH;
 		gbc__contactJList.insets = new Insets(10, 10, 5, 0);
-		gbc__contactJList.gridwidth = 5;
+		gbc__contactJList.gridwidth = 6;
 		gbc__contactJList.gridx = 0;
 		gbc__contactJList.gridy = 1;
 		ContactListJPanel.add(scrollPane, gbc__contactJList);
 		initializeContactList(getContactjList());
 		
+		lockButton = new JButton("Lock");		
+		lockButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(_selectedContact != null){
+					if(_selectedContact.tryLock(_userName))
+					{						
+					}
+				}
+			}
+		});
+		GridBagConstraints gbc_btnLock = new GridBagConstraints();
+		gbc_btnLock.insets = new Insets(0, 0, 10, 5);
+		gbc_btnLock.gridx = 1;
+		gbc_btnLock.gridy = 2;
+		ContactListJPanel.add(lockButton, gbc_btnLock);
+		
 		JButton btnAdd = new JButton("Add");
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 10, 5);
-		gbc_btnAdd.gridx = 1;
+		gbc_btnAdd.gridx = 2;
 		gbc_btnAdd.gridy = 2;
 		ContactListJPanel.add(btnAdd, gbc_btnAdd);
 		btnAdd.addActionListener(new ActionListener() {
@@ -196,7 +220,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		btnRemove.setEnabled(false);
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
 		gbc_btnRemove.insets = new Insets(0, 0, 10, 5);
-		gbc_btnRemove.gridx = 2;
+		gbc_btnRemove.gridx = 3;
 		gbc_btnRemove.gridy = 2;
 		ContactListJPanel.add(btnRemove, gbc_btnRemove);
 		btnRemove.addActionListener(new ActionListener() {
@@ -210,7 +234,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		JButton btnUndo = new JButton("Undo");
 		GridBagConstraints gbc_btnUndo = new GridBagConstraints();
 		gbc_btnUndo.insets = new Insets(0, 0, 10, 5);
-		gbc_btnUndo.gridx = 3;
+		gbc_btnUndo.gridx = 4;
 		gbc_btnUndo.gridy = 2;
 		ContactListJPanel.add(btnUndo, gbc_btnUndo);
 		
@@ -218,7 +242,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		GridBagConstraints gbc_btnRemove_1 = new GridBagConstraints();
 		gbc_btnRemove_1.insets = new Insets(0, 0, 10, 0);
 		gbc_btnRemove_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnRemove_1.gridx = 4;
+		gbc_btnRemove_1.gridx = 5;
 		gbc_btnRemove_1.gridy = 2;
 		ContactListJPanel.add(btnRemove_1, gbc_btnRemove_1);
 		
@@ -478,21 +502,25 @@ public class ContactListMasterDetailFrame implements Observer {
 	}
 	
 	private void initializeContactList(JList<Contact> contactList) {
+		//_contactStore is null if open in Designer
 		if(_contactStore != null){
-			contactList.setCellRenderer(new ContactListCellRenderer());
+			contactList.setCellRenderer(new ContactListCellRenderer(_userName));
 			contactList.setModel(new ContactStoreJListModel(_contactStore));
+			contactList.setSelectionModel(new DisabledItemSelectionModel(_contactStore, _userName));
 			contactList.addListSelectionListener(new ListSelectionListener() {
 				
 				@Override
 				public void valueChanged(ListSelectionEvent e) {
-					// TODO Auto-generated method stub
 					
 					if(e.getFirstIndex() > -1){
+						if(_contactStore.getLength() > 0){
+							_selectedContact = _contactStore.getContact(getContactjList().getSelectedIndex());
+							_copySelectedContact = _selectedContact.Copy();
+							update(_selectedContact, "all");
+							enableSelectedListControls(/*enabled*/!_selectedContact.isLocked());
+							getLockButton().setEnabled(!_selectedContact.isLocked());	
+						}	
 						
-						_selectedContact = _contactStore.getContact(getContactjList().getSelectedIndex());
-						_copySelectedContact = _selectedContact.Copy();
-						update(_selectedContact, "all");
-						enableSelectedListControls(/*enabled*/true);
 					}					
 				}
 			});
@@ -541,7 +569,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	//error label is never shown if _selectedContact.IsEmpty
 	private boolean showErrorLabel(boolean showLabel)
 	{		
-		return !_selectedContact.IsEmpty() && showLabel;
+		return !_selectedContact.isEmpty() && showLabel;
 	}
 	
 	private void checkSaveable() {		
@@ -615,7 +643,7 @@ public class ContactListMasterDetailFrame implements Observer {
 		
 		if(_contactStore.isEmpty())
 		{
-			_selectedContact = Contact.GetEmptyContact();
+			_selectedContact = Contact.getEmptyContact();
 			_copySelectedContact = _selectedContact;	
 		}
 		
@@ -631,19 +659,24 @@ public class ContactListMasterDetailFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		
+		if(o == null)
+		{
+			return;
+		}
+		
 		if(o instanceof ContactStore){
 			_contactJList.updateUI();
 			boolean hasListItems = (_contactStore.getLength() > 0);
 			btnRemove.setEnabled(hasListItems && (getContactjList().getSelectedIndex() >= 0));
 			for(Component component:getContactDetailPanel().getComponents()){
 			  component.setEnabled(hasListItems);	
-			}
-			 
+			}			 
 		}
 		
 		if(!(o instanceof Contact)){
 			return;
 		}
+		
 		Contact contact = (Contact)o;
 		boolean updateAll = arg == "all";
 		
@@ -667,6 +700,11 @@ public class ContactListMasterDetailFrame implements Observer {
 			getNotesField().setText(contact.getNotes());
 		}
 	
+		if(arg == "lock"){
+			System.out.println("test");
+			_contactJList.updateUI();
+		}
+		
 		checkSaveable();
 	}
 }
