@@ -80,6 +80,7 @@ public class ContactListMasterDetailFrame implements Observer {
 	private JButton lockButton;
 	private JButton btnCancel;
 	private JButton btnAdd;
+	private boolean _isNewContact;
 
 	private JPanel getContactDetailPanel() {
 		return contactDetailPanel;
@@ -489,7 +490,10 @@ public class ContactListMasterDetailFrame implements Observer {
 				_selectedContact.UnLock(_userName);
 				update(_selectedContact, "all");
 				update(_selectedContact, "lock");
-				
+				if(_isNewContact){
+					_isNewContact = false;
+					removeSelectedContact();
+				}
 			}
 		});
 
@@ -512,6 +516,7 @@ public class ContactListMasterDetailFrame implements Observer {
 				_selectedContact.UnLock(_userName);
 				_copySelectedContact = _selectedContact.Copy();
 				update(_selectedContact, "lock");
+				_isNewContact = false;
 			}
 		});
 
@@ -667,14 +672,19 @@ public class ContactListMasterDetailFrame implements Observer {
 		newContact.setLastName("*new*");
 		_contactStore.addContact(newContact);
 		_selectedContact = newContact;
-		_copySelectedContact = newContact.Copy();
-		_selectedContact.tryLock(_userName);
+		_copySelectedContact = newContact.Copy();		
 		_contactJList.setSelectedIndex(_contactStore.getLength() - 1);
+		_selectedContact.tryLock(_userName);
 		update(_selectedContact, "all");
+		_isNewContact = true;
 		// _contactJList.updateUI();
 	}
 
 	private void removeButtonPressed() {
+		removeSelectedContact();		
+	}
+
+	private void removeSelectedContact() {
 		int selectedIndex = _contactJList.getSelectedIndex();
 		Contact contact = _contactJList.getSelectedValue();
 
@@ -694,7 +704,6 @@ public class ContactListMasterDetailFrame implements Observer {
 		}
 
 		update(_selectedContact, "all");
-		
 	}
 
 	private boolean noItemSelected(JList list) {
@@ -708,16 +717,11 @@ public class ContactListMasterDetailFrame implements Observer {
 			return;
 		}
 
-		if (o instanceof ContactStore) {
-			_contactJList.updateUI();
-			boolean hasListItems = !_contactStore.isEmpty();
-			// btnRemove.setEnabled(hasListItems &&
-			// (getContactjList().getSelectedIndex() >= 0));
-			enableSelectedListControls(hasListItems
-					&& (getContactjList().getSelectedIndex() >= 0));
-			enableContactDetails(hasListItems);
-		}
+		updateContactStore(o);
+		updateContact(o, arg);
+	}
 
+	private void updateContact(Observable o, Object arg) {
 		if (!(o instanceof Contact)) {
 			return;
 		}
@@ -751,6 +755,18 @@ public class ContactListMasterDetailFrame implements Observer {
 		}
 
 		checkSaveable();
+	}
+
+	private void updateContactStore(Observable o) {
+		if (o instanceof ContactStore) {
+			_contactJList.updateUI();
+			boolean hasListItems = !_contactStore.isEmpty();
+			// btnRemove.setEnabled(hasListItems &&
+			// (getContactjList().getSelectedIndex() >= 0));
+			enableSelectedListControls(hasListItems
+					&& (getContactjList().getSelectedIndex() >= 0));
+			enableContactDetails(hasListItems);
+		}
 	}
 
 	private void enableContactDetails(boolean enable) {
